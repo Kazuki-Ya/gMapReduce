@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package mr.v1;
+
+option go_package = "github.com/Kazuki-Ya/api/mr_v1";
+
+message TaskRequestArgs {
+    uint64 worker_id = 1;
+}
+
+message TaskRequestResponse {
+    string filename = 1;
+    uint64 task_id = 2;
+    bytes task_type = 3;
+}
+
+message GetnReduceRequestArgs {
+
+}
+
+message GetnReduceRequestResponse {
+    uint64 n_reduce = 1;
+}
+
+message ReportTaskArgs {
+    uint64 task_id = 1;
+    uint64 worker_id = 2;
+    bytes task_type = 3;
+}
+
+message ReportTaskResponse {
+    bool can_exit = 1;
+}
+
+service MapReduce {
+    rpc TaskRequest(TaskRequestArgs) returns (TaskRequestResponse) {}
+    rpc GetnReduce(GetnReduceRequestArgs) returns (GetnReduceRequestResponse) {}
+    rpc ReportTask(ReportTaskArgs) returns (ReportTaskResponse) {}
+}
