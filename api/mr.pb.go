@@ -20,6 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Woker sends this message to Master in order to get a task and teach worker id.
 type TaskRequestArgs struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -67,6 +68,7 @@ func (x *TaskRequestArgs) GetWorkerId() uint64 {
 	return 0
 }
 
+// Master sends this message to Worker and Worker knows task's detail.
 type TaskRequestResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -130,6 +132,7 @@ func (x *TaskRequestResponse) GetTaskType() []byte {
 	return nil
 }
 
+// Worker sends this message to know the number of reduce worker.
 type GetnReduceRequestArgs struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -168,6 +171,7 @@ func (*GetnReduceRequestArgs) Descriptor() ([]byte, []int) {
 	return file_api_mr_proto_rawDescGZIP(), []int{2}
 }
 
+// Master sends the number of nreduce to Worker.
 type GetnReduceRequestResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -215,6 +219,7 @@ func (x *GetnReduceRequestResponse) GetNReduce() uint64 {
 	return 0
 }
 
+// Worker sends this message in order to report task's status.
 type ReportTaskArgs struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -278,6 +283,7 @@ func (x *ReportTaskArgs) GetTaskType() []byte {
 	return nil
 }
 
+// Master sends this message and Worker knows whether it can exit or not.
 type ReportTaskResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
