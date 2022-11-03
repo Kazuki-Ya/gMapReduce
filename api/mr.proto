@@ -4,34 +4,38 @@ package mr.v1;
 
 option go_package = "github.com/Kazuki-Ya/api/mr_v1";
 
+// Woker sends this message to Master in order to get a task and teach worker id.
 message TaskRequestArgs {
     uint64 worker_id = 1;
 }
-
+// Master sends this message to Worker and Worker knows task's detail.
 message TaskRequestResponse {
     string filename = 1;
     uint64 task_id = 2;
     bytes task_type = 3;
 }
-
+// Worker sends this message to know the number of reduce worker.
 message GetnReduceRequestArgs {
 
 }
-
+// Master sends the number of nreduce to Worker.
 message GetnReduceRequestResponse {
     uint64 n_reduce = 1;
 }
 
+// Worker sends this message in order to report task's status.
 message ReportTaskArgs {
     uint64 task_id = 1;
     uint64 worker_id = 2;
     bytes task_type = 3;
 }
 
+// Master sends this message and Worker knows whether it can exit or not.
 message ReportTaskResponse {
     bool can_exit = 1;
 }
 
+// These rpc are called by Worker and Master reply.
 service MapReduce {
     rpc TaskRequest(TaskRequestArgs) returns (TaskRequestResponse) {}
     rpc GetnReduce(GetnReduceRequestArgs) returns (GetnReduceRequestResponse) {}
